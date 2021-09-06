@@ -90,7 +90,7 @@
 
 <script>
 export default {
-  name: "EHome",
+  name: "Home",
 
   data: () => ({
     user: { 
