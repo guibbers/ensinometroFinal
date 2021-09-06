@@ -20,6 +20,15 @@ Tecnologias utilizadas:
 
 ## :pushpin: Como Rodar
 
+<h1> Setup Inicial </h1>
+<p>  
+    Acesse a pasta "back-end" e, pelo console, digite o código:
+    ```
+        npm install
+    ```
+
+</p>
+
 <h1> Back-end </h1>
 <p align="justify">
     Para rodar o back-end da aplicação, faça um fork de todo o repositório, acesse a pasta "back-end" pelo console e digite o comando "node server.js". (por padrão ele iniciará na porta 3000)
