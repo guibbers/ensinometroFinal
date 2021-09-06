@@ -55,7 +55,7 @@ e acesse a aplicação pelo endereço "localhost:8081" em seu navegador.
 <h1> Front-end Aluno </h1>
 Para rodar a aplicação para o aluno faça um fork de todo o repositório, acesse a pasta "fgront-aluno" pelo console e digite o comando: 
 
-    "npm run serve -- --port8080" 
+    npm run serve -- --port8080 
     
 e acesse a aplicação pelo endereço "localhost:8080" em seu navegador. <br>
 <strong>Obs: Não esqueça de iniciar o servidor do back-end antes dessa etapa.</strong>
