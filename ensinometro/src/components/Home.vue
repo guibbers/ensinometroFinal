@@ -40,13 +40,7 @@
             <h1 class="display-2 font-weight-bold mb-3">Ensinômetro</h1>
             <v-card-title>Olá {{ user.username }} </v-card-title>
             <p v-if="questions.length == 0" class="notStarted">Ainda não foi iniciada nenhuma aula. Espere seu professor.</p>
-            <!-- <v-btn
-                color="primary"
-                :disabled="!user"
-                v-on:click="getQuestion()"
-              >
-                Confirmar</v-btn
-              > -->
+            
             <div v-for="question in questions" :key="question.title">
               <v-card link="" elevation="1" class="question" @click="clickQuestion(question)"><div class="circle"></div> {{ question.title }}</v-card>
             </div>
