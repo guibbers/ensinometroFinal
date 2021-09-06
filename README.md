@@ -21,14 +21,15 @@ Tecnologias utilizadas:
 ## :pushpin: Como Rodar
 
 <h1> Setup Inicial </h1>
-    <p>
-    Acesse a pasta "back-end" e, pelo console, digite o código:
-    </p>
     
-    npm install
-    ```
-
+    Acesse a pasta "back-end" e, pelo console, digite o código:
+    
+    
+    ```npm install```
+    
+    
     repita esse mesmo processo dentro das pastas "front-aluno" e depois "front-professor".
+    
 
 
 <h1> Back-end </h1>
