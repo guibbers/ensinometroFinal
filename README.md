@@ -24,7 +24,7 @@ Tecnologias utilizadas:
 <p>  
     Acesse a pasta "back-end" e, pelo console, digite o código:
     ```
-        npm install
+    npm install
     ```
 
 </p>
