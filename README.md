@@ -23,9 +23,11 @@ Tecnologias utilizadas:
 <h1> Setup Inicial </h1>
  
     Acesse a pasta "back-end" e, pelo console, digite o código:
-    ```
+    
     npm install
     ```
+
+    repita esse mesmo processo dentro das pastas "front-aluno" e depois "front-professor".
 
 
 <h1> Back-end </h1>
@@ -41,6 +43,6 @@ Tecnologias utilizadas:
 
 <h1> Front-end Aluno </h1>
 <p align="justify"> 
-    Para rodar a aplicação para o aluno faça um fork de todo o repositório, acesse a pasta "ensinometro" pelo console e digite o comando "npm run serve -- --port8080" e acesse a aplicação pelo endereço "localhost:8080" em seu navegador.
+    Para rodar a aplicação para o aluno faça um fork de todo o repositório, acesse a pasta "front-aluno" pelo console e digite o comando "npm run serve -- --port8080" e acesse a aplicação pelo endereço "localhost:8080" em seu navegador.
     Obs: Não esqueça de iniciar o servidor do back-end antes.
 </p>
