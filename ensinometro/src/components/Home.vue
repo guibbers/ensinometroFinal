@@ -6,7 +6,7 @@
       leave-active-class="animated bounceOutRight"
     >
       <v-container
-        class="main-container animate__bounce"
+        class="main-container animate__bounceOutRight"
         v-if="screen == 'register'"
       >
         <v-row class="text-center">
@@ -51,7 +51,7 @@
               <v-card link="" elevation="1" class="question" @click="clickQuestion(question)"><div class="circle"></div> {{ question.title }}</v-card>
             </div>
           </v-col>
-          <v-btn @click="logout()"> Sair </v-btn>
+          <v-btn class="logout primary" @click="logout()"> Sair </v-btn>
         </v-card>
         
       </v-row>
@@ -210,6 +210,10 @@ export default {
   justify-content: center;
 }
 
+.logout {
+  margin-bottom: 20px;
+}
+
 .notStarted {
   width: 50%;
 }
@@ -224,9 +228,17 @@ export default {
 .question {
   display: flex;
   background-color: #fff;
+  line-height: 2;
   margin: 10px;
   padding: 10px;
-  width: 100%;
+  align-items: center;
+  cursor: pointer;
+  width: 300px;
+  transition: 300ms;
+}
+
+.question:hover {
+  background-color: rgba(219, 215, 215, 0.596)
 }
 
 .question .circle {
@@ -239,6 +251,7 @@ export default {
 
 .alternatives {
   list-style: none;
+  line-height: 2;
   width: 100%;
 }
 

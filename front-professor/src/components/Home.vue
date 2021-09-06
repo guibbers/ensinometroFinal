@@ -39,16 +39,16 @@
           <v-col class="mb-4">
             <h1 class="display-2 font-weight-bold mb-3">Ensinômetro</h1>
             <v-card-title>Olá {{ user.username }} </v-card-title>
-            <p v-if="questions.length == 0" class="notStarted">Ainda não foi iniciada nenhuma aula. Espere seu professor.</p>
+            <p v-if="questions.length == 0" class="notStarted"> Aula iniciada! Clique no botão abaixo para enviar perguntas para seus alunos.</p>
             <v-btn
                 color="primary"
                 :disabled="!user"
                 v-on:click="setQuestion()"
               >
-                Confirmar</v-btn
+                Enviar Perguntas</v-btn
               >
           </v-col>
-          <v-btn @click="logout()"> Sair </v-btn>
+          <v-btn class="logout primary" @click="logout()"> Sair </v-btn>
         </v-card>
         
       </v-row>
@@ -75,7 +75,7 @@
             <ul v-for="alternative in question.alternatives" :key="alternative.key" class="alternatives">
               <li><v-card class="alternative"> <v-text-field v-model="alternative.value"></v-text-field> <input type="checkbox" id="checkbox" v-model="alternative.rightAnswer"> </v-card></li>
             </ul>
-            <v-btn color="primaroy" @click="registerQuestion(question)">Confirmar</v-btn>
+            <v-btn color="primary" @click="registerQuestion(question)">Confirmar</v-btn>
           </v-col>
         </v-card>
       </v-row>
@@ -260,6 +260,10 @@ export default {
   margin-top: 10%;
   align-items: center;
   justify-content: center;
+}
+
+.logout {
+  margin-bottom: 20px;
 }
 
 .notStarted {
