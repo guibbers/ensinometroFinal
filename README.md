@@ -21,13 +21,12 @@ Tecnologias utilizadas:
 ## :pushpin: Como Rodar
 
 <h1> Setup Inicial </h1>
-<p>  
+ 
     Acesse a pasta "back-end" e, pelo console, digite o código:
     ```
     npm install
     ```
 
-</p>
 
 <h1> Back-end </h1>
 <p align="justify">
