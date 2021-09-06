@@ -30,14 +30,15 @@ io.on('connection', (socket) => {
   });
 
     // envia perguntas para o front-end
-  socket.on('get question', () => {
-    socket.emit('sendQuestion', {
-      title: 'título da pergunta',
-      description: 'descrição da pergunta', 
-      id: 1,
-      alternatives: [1, 2, 3, 4],
-      rightAnswer: 2
-     });
+/*   socket.on('get question', ( question ) => {
+    socket.emit('sendQuestion', { ...question }
+    );
+  }); */
+
+  socket.on('set question', ( question ) => {
+    socket.emit('send question', question);
+    console.log(question);
+    io.emit('sendQuestionToStudent', question);
   });
 
   // when the user disconnects.. perform this

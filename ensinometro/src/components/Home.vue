@@ -40,14 +40,14 @@
             <h1 class="display-2 font-weight-bold mb-3">Ensinômetro</h1>
             <v-card-title>Olá {{ user.username }} </v-card-title>
             <p v-if="questions.length == 0" class="notStarted">Ainda não foi iniciada nenhuma aula. Espere seu professor.</p>
-            <v-btn
+            <!-- <v-btn
                 color="primary"
                 :disabled="!user"
                 v-on:click="getQuestion()"
               >
                 Confirmar</v-btn
-              >
-            <div v-for="question in questions" :key="question">
+              > -->
+            <div v-for="question in questions" :key="question.title">
               <v-card link="" elevation="1" class="question" @click="clickQuestion(question)"><div class="circle"></div> {{ question.title }}</v-card>
             </div>
           </v-col>
@@ -64,8 +64,8 @@
             <h1 class="display-2 font-weight-bold mb-3">Ensinômetro</h1>
             <v-card-title> {{ title }}</v-card-title>
             <p> {{ description }}</p>
-            <ul v-for="alternative in alternatives" :key="alternative" class="alternatives">
-              <li><v-card link="" class="alternative">{{ alternative }}</v-card></li>
+            <ul v-for="alternative in alternatives" :key="alternative.key" class="alternatives">
+              <li><v-card link="" class="alternative">{{ alternative.value }}</v-card></li>
             </ul>
             <v-btn color="primary" @click="goBack('home')">Voltar</v-btn>
           </v-col>
@@ -89,6 +89,7 @@
 </template>
 
 <script>
+
 export default {
   name: "Home",
 
@@ -100,7 +101,8 @@ export default {
     screen: "register",
     message: null,
     showSnackbar: false,
-    questions: []
+    questions: [],
+    test:null
   }),
 
   mounted() {
@@ -108,12 +110,17 @@ export default {
       this.user = JSON.parse( localStorage.user );
       this.screen = 'home';
     }
-
-  },
+ 
+ 
+    },
 
   sockets: {
+    sendQuestionToStudent(questions){
+    this.questions = questions
+    },
     connect() {
       this.showAlert("Server connected")
+    
     },
 
     disconnect() {
@@ -135,10 +142,6 @@ export default {
       this.showAlert(`Aluno ${user} já registrado. Digite um nome válido`)
     },
 
-    sendQuestion(question) {
-      this.questions.push(question);
-    },
-    
   },
 
   methods: {
@@ -153,10 +156,13 @@ export default {
     },
 
     getQuestion(question) {
+      this.$socket.on('set question', question);
       this.$socket.emit("get question", question);
+      console.log({question})
     },
 
     clickQuestion(question) {
+      console.log({question})
       this.screen = "question";
       this.title = question.title;
       this.description = question.description;
@@ -168,7 +174,7 @@ export default {
     },
 
     logout() {
-      this.$socket.emit("logout", this.user )
+      this.$socket.emit("logout", this.user );
       delete localStorage.user;
       this.user = { username: null, timestamp: null }
       this.screen = 'register';
