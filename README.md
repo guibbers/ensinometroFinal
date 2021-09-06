@@ -21,8 +21,9 @@ Tecnologias utilizadas:
 ## :pushpin: Como Rodar
 
 <h1> Setup Inicial </h1>
- 
+    <p>
     Acesse a pasta "back-end" e, pelo console, digite o código:
+    </p>
     
     npm install
     ```
@@ -43,6 +44,6 @@ Tecnologias utilizadas:
 
 <h1> Front-end Aluno </h1>
 <p align="justify"> 
-    Para rodar a aplicação para o aluno faça um fork de todo o repositório, acesse a pasta "front-aluno" pelo console e digite o comando "npm run serve -- --port8080" e acesse a aplicação pelo endereço "localhost:8080" em seu navegador.
+    Para rodar a aplicação para o aluno faça um fork de todo o repositório, acesse a pasta "fgront-aluno" pelo console e digite o comando "npm run serve -- --port8080" e acesse a aplicação pelo endereço "localhost:8080" em seu navegador.
     Obs: Não esqueça de iniciar o servidor do back-end antes.
 </p>
