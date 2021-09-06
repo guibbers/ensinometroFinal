@@ -1,4 +1,4 @@
-# <h1 align="center">👩🏻‍💻 Projeto Ensinômetro 👩🏻‍💻</h1>
+# <h1 align="center"> Projeto Ensinômetro </h1>
 
 > _📈 Projeto parte do desafio tecnico que estou realizando da Jovens Gênios.
 
@@ -9,22 +9,30 @@ O projeto ensinômetro visa facilitar as aulas a distância dando ao professor e
 </p>
 
 <p align="justify">
-Tecnologias utilizadas no desenvolvimento:
- <ul>
-    <li></li>
- </ul>
-</p>
+Tecnologias utilizadas:
+<ul>
+    <li>Vue.js</li>
+    <li>Vuetify</li>
+    <li>Animate.css</li>
+    <li>Node.js</li>
+    <li>Socket.io</li>
+</ul>
 
-## 📜 Projects
+## :pushpin: Como Rodar
 
-### ✨ Search Movies
-<div align="center">
-<img src="https://user-images.githubusercontent.com/66320795/121817271-ae646180-cc56-11eb-964d-e3654a307682.gif" height="300px" alt="imagem da versão web">
-</div>
-<br>
+<h1> Back-end </h1>
 <p align="justify">
-Really basic project, using only ReactJs and TMDB API, getting familiar with React. Here you can search for movies. Responsive with poster images fallback and empty results message, so we can improve user's experience.
+    Para rodar o back-end da aplicação, faça um fork de todo o repositório, acesse a pasta "back-end" pelo console e digite o comando "node server.js". (por padrão ele iniciará na porta 3000)
 </p>
 
-- [See code](hhttps://github.com/marianasmmattos/react-js-projects/tree/search-moviesx)
-- [See online preview](https://reactjs-search-movies.netlify.app/)
+<h1> Front-end Professor </h1>
+<p align="justify"> 
+    Para rodar a aplicação para o professor, faça um fork de todo o repositório, acesse a pasta "front-professor" pelo console e digite o comando "npm run serve -- --port8081" e acesse a aplicação pelo endereço "localhost:8081" em seu navegador.
+    Obs: Não esqueça de iniciar o servidor do back-end antes.
+</p>
+
+<h1> Front-end Aluno </h1>
+<p align="justify"> 
+    Para rodar a aplicação para o aluno faça um fork de todo o repositório, acesse a pasta "ensinometro" pelo console e digite o comando "npm run serve -- --port8080" e acesse a aplicação pelo endereço "localhost:8080" em seu navegador.
+    Obs: Não esqueça de iniciar o servidor do back-end antes.
+</p>
