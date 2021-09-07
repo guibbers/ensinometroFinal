@@ -5,20 +5,24 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const port = process.env.PORT || 3000;
 
+app.get("/", (req, res)=> {
+  res.send("é os guri do inter");
+});
+
 server.listen(port, () => {
   console.log('Server listening at port %d', port);
 });
 
-let alunosOnline = [];
+let onlineStudents = [];
 let answeredQuestions = [];
 
 io.on('connection', (socket) => {
   let addedUser = false;
   
   socket.on('add user', (user) => {
-      if (!alunosOnline.includes(user)) {
-        alunosOnline.push(user);
-        console.log(alunosOnline)
+      if (!onlineStudents.includes(user)) {
+        onlineStudents.push(user);
+        console.log(onlineStudents)
         socket.emit("registered", {
           timestamp: new Date().getTime(),
           username: user.username
@@ -44,10 +48,10 @@ io.on('connection', (socket) => {
 
   socket.on('logout', (user)=> {
 
-    alunosOnline.forEach((student, i) => {
+    onlineStudents.forEach((student, i) => {
 
       if (student.username === user.username ) {
-        alunosOnline.splice( i , 1 );
+        onlineStudents.splice( i , 1 );
       }
 
     });
