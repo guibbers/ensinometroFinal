@@ -1,14 +1,12 @@
 <template>
-  <div>
-      <v-container
-        class="main-container"
-        v-if="screen == 'register'"
-      >
-        <v-row class="text-center">
-          <v-card elevation="5">
+  <div class="main-container">
+      <v-container class="text-center"  v-if="screen == 'register'">
+
+        <v-row no-gutters>
+          
             <v-col class="mb-4">
               <h1 class="display-2 font-weight-bold mb-3">Ensinômetro - Professores</h1>
-              <v-card-title>Digite seu nome para entrar na sala.</v-card-title>
+              <h3>Digite seu nome para entrar na sala.</h3>
               <v-text-field
                 v-model="user.username"
                 :counter="30"
@@ -23,16 +21,16 @@
                 Confirmar</v-btn
               >
             </v-col>
-          </v-card>
+          
         </v-row>
       </v-container>
 
     <v-container class="main-container" v-if="screen == 'home'">
       <v-row class="text-center">
-        <v-card elevation="5" class="main-card">
+        
           <v-col class="mb-4">
             <h1 class="display-2 font-weight-bold mb-3">Ensinômetro - Professores</h1>
-            <v-card-title>Olá {{ user.username }} </v-card-title>
+            <h3>Olá {{ user.username }} </h3>
             <p v-if="questions.length == 0" class="notStarted"> Aula iniciada! Clique no botão abaixo para enviar perguntas para seus alunos.</p>
             <v-btn
                 color="primary"
@@ -48,18 +46,17 @@
             </ul>
 
           </v-col>
-          <v-btn class="logout primary" @click="logout()"> Sair </v-btn>
-        </v-card>
+        
         
       </v-row>
     </v-container>
 
     <v-container class="main-container" v-if="screen == 'question' ">
       <v-row class="text-center">
-        <v-card elevation="5" class="main-card">
+        
           <v-col class="mb-4">
             <h1 class="display-2 font-weight-bold mb-3">Ensinômetro - Professores</h1>
-            <v-card-title> Insira o título da pergunta: </v-card-title>
+            <h3> Insira o título da pergunta: </h3>
             <v-text-field
                 v-model="question.title"
                 :counter="100"
@@ -73,11 +70,11 @@
                 required
               ></v-text-field>
             <ul v-for="alternative in question.alternatives" :key="alternative.key" class="alternatives">
-              <li><v-card class="alternative"> <v-text-field v-model="alternative.value"></v-text-field> <input type="checkbox" id="checkbox" v-model="alternative.rightAnswer"> </v-card></li>
+              <li><div class="alternative"> <v-text-field v-model="alternative.value"></v-text-field> <input type="checkbox" id="checkbox" v-model="alternative.rightAnswer"> </div></li>
             </ul>
             <v-btn color="primary" @click="registerQuestion(question)">Confirmar</v-btn>
           </v-col>
-        </v-card>
+        
       </v-row>
     </v-container>
 
