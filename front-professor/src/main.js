@@ -8,10 +8,11 @@ import 'animate.css';
 
 Vue.config.productionTip = false
 
-const connection = io.connect('http://localhost:3000', {
+const connection = io.connect('https://ensinometro-back.herokuapp.com', {
   transports: ['websocket'],
   upgrade: false
 });
+
 
 Vue.use(new VueSocketIO({
   connection,

@@ -38,6 +38,10 @@ io.on('connection', (socket) => {
     io.emit('sendQuestionToStudent', question);
   });
 
+  socket.on('get students', ()=> {
+    io.emit('set students', onlineStudents);    
+  });
+
   socket.on('disconnect', () => {
     
   });
