@@ -1,18 +1,14 @@
 <template>
   <div>
-    <transition
-      name="custom-classes-transition"
-      enter-active-class="animated tada"
-      leave-active-class="animated bounceOutRight"
-    >
+    
       <v-container
-        class="main-container animate__bounceOutRight"
+        class="main-container"
         v-if="screen == 'register'"
       >
         <v-row class="text-center">
           <v-card elevation="5">
             <v-col class="mb-4">
-              <h1 class="display-2 font-weight-bold mb-3">Ensinômetro</h1>
+              <h1 class="display-2 font-weight-bold mb-3">Ensinômetro - Alunos</h1>
               <v-card-title>Digite seu nome para entrar na sala</v-card-title>
               <v-text-field
                 v-model="user.username"
@@ -31,36 +27,35 @@
           </v-card>
         </v-row>
       </v-container>
-    </transition>
 
-    <v-container class="main-container animate__bounce" v-if="screen == 'home'">
+    <v-container class="main-container" v-if="screen == 'home'">
       <v-row class="text-center">
         <v-card elevation="5" class="main-card">
           <v-col class="mb-4">
-            <h1 class="display-2 font-weight-bold mb-3">Ensinômetro</h1>
+            <h1 class="display-2 font-weight-bold mb-3">Ensinômetro - Alunos</h1>
             <v-card-title>Olá {{ user.username }} </v-card-title>
-            <p v-if="questions.length == 0" class="notStarted">Ainda não foi iniciada nenhuma aula. Espere seu professor.</p>
-            
+            <p v-if="questions.length == 0" class="notStarted">Ainda não foi iniciada nenhuma aula. Espere seu professor.</p>            
             <div v-for="question in questions" :key="question.title">
               <v-card link="" elevation="1" class="question" @click="clickQuestion(question)"><div class="circle"></div> {{ question.title }}</v-card>
             </div>
           </v-col>
           <v-btn class="logout primary" @click="logout()"> Sair </v-btn>
-        </v-card>
-        
+        </v-card>        
       </v-row>
     </v-container>
 
-    <v-container class="main-container animate__bounce" v-if="screen == 'question' ">
+    <v-container class="main-container" v-if="screen == 'question' ">
       <v-row class="text-center">
         <v-card elevation="5" class="main-card">
           <v-col class="mb-4">
-            <h1 class="display-2 font-weight-bold mb-3">Ensinômetro</h1>
+            <h1 class="display-2 font-weight-bold mb-3">Ensinômetro - Alunos</h1>
             <v-card-title> {{ title }}</v-card-title>
             <p> {{ description }}</p>
             <ul v-for="alternative in alternatives" :key="alternative.key" class="alternatives">
-              <li><v-card link="" class="alternative">{{ alternative.value }}</v-card></li>
+              <li><v-card @click="saveStudentAnswer(alternative, title)" class="alternative">{{ alternative.value }}</v-card></li>
             </ul>
+            <p>Escolha uma alternativa e clique em "Enviar"</p>
+            <v-btn color="primary" @click="sendAnswersToTeacher()">Enviar</v-btn>
             <v-btn color="primary" @click="goBack('home')">Voltar</v-btn>
           </v-col>
         </v-card>
@@ -96,29 +91,28 @@ export default {
     message: null,
     showSnackbar: false,
     questions: [],
-    test:null
+    studentAnswers: {},
+
   }),
 
   mounted() {
     if(localStorage.user) {
       this.user = JSON.parse( localStorage.user );
       this.screen = 'home';
-    }
- 
- 
+    } 
     },
 
   sockets: {
     sendQuestionToStudent(questions){
-    this.questions = questions
+    this.questions = questions;
     },
-    connect() {
-      this.showAlert("Server connected")
     
+    connect() {
+      this.showAlert("Server connected");    
     },
 
     disconnect() {
-      this.showAlert("Server Disconnected")
+      this.showAlert("Server Disconnected");
     },
 
     registered(user) {
@@ -133,14 +127,28 @@ export default {
     },
 
     alreadyRegistered(user) {
-      this.showAlert(`Aluno ${user} já registrado. Digite um nome válido`)
+      this.showAlert(`Aluno ${user} já registrado. Digite um nome válido`);
     },
 
   },
 
   methods: {
+    saveStudentAnswer(alternative, title){
+      const answer = alternative.rightAnswer
+      this.studentAnswers[title] = answer 
+
+    },
+    
+    sendAnswersToTeacher(){
+      this.$socket.emit("submitQuestion", {
+        answer: this.studentAnswers,
+        student: this.user.username
+      })
+      this.studentAnswers = {}
+      this.screen = 'home';
+    },
     showAlert(message) {
-      this.message = message
+      this.message = message;
       this.showSnackbar = true;
       setTimeout(() => this.showSnackbar = false, 3000);
     },

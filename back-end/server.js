@@ -9,13 +9,12 @@ server.listen(port, () => {
   console.log('Server listening at port %d', port);
 });
 
-let numUsers = 0;
 let alunosOnline = [];
+let answeredQuestions = [];
 
 io.on('connection', (socket) => {
   let addedUser = false;
-
-  // when the client emits 'add user', this listens and executes
+  
   socket.on('add user', (user) => {
       if (!alunosOnline.includes(user)) {
         alunosOnline.push(user);
@@ -27,21 +26,18 @@ io.on('connection', (socket) => {
       } else {
         socket.emit("alreadyRegistered", "Aluno já registrado, tente um nome válido.");
       }
-  });
+  }); 
 
-    // envia perguntas para o front-end
-/*   socket.on('get question', ( question ) => {
-    socket.emit('sendQuestion', { ...question }
-    );
-  }); */
+  socket.on("submitQuestion", (answer) => {
+    answeredQuestions.push(answer)
+    io.emit("studentAnswers", answeredQuestions)
+  })
 
   socket.on('set question', ( question ) => {
     socket.emit('send question', question);
-    console.log(question);
     io.emit('sendQuestionToStudent', question);
   });
 
-  // when the user disconnects.. perform this
   socket.on('disconnect', () => {
     
   });
@@ -57,4 +53,5 @@ io.on('connection', (socket) => {
     });
 
   });
+
 });

@@ -1,19 +1,14 @@
 <template>
   <div>
-    <transition
-      name="custom-classes-transition"
-      enter-active-class="animated tada"
-      leave-active-class="animated bounceOutRight"
-    >
       <v-container
-        class="main-container animate__bounce"
+        class="main-container"
         v-if="screen == 'register'"
       >
         <v-row class="text-center">
           <v-card elevation="5">
             <v-col class="mb-4">
-              <h1 class="display-2 font-weight-bold mb-3">Ensinômetro</h1>
-              <v-card-title>Olá, professor! Digite seu nome para entrar na sala.</v-card-title>
+              <h1 class="display-2 font-weight-bold mb-3">Ensinômetro - Professores</h1>
+              <v-card-title>Digite seu nome para entrar na sala.</v-card-title>
               <v-text-field
                 v-model="user.username"
                 :counter="30"
@@ -31,13 +26,12 @@
           </v-card>
         </v-row>
       </v-container>
-    </transition>
 
-    <v-container class="main-container animate__bounce" v-if="screen == 'home'">
+    <v-container class="main-container" v-if="screen == 'home'">
       <v-row class="text-center">
         <v-card elevation="5" class="main-card">
           <v-col class="mb-4">
-            <h1 class="display-2 font-weight-bold mb-3">Ensinômetro</h1>
+            <h1 class="display-2 font-weight-bold mb-3">Ensinômetro - Professores</h1>
             <v-card-title>Olá {{ user.username }} </v-card-title>
             <p v-if="questions.length == 0" class="notStarted"> Aula iniciada! Clique no botão abaixo para enviar perguntas para seus alunos.</p>
             <v-btn
@@ -47,6 +41,12 @@
               >
                 Enviar Perguntas</v-btn
               >
+
+            <h1> Respostas dos alunos em tempo real: </h1>
+            <ul v-for="answer in answers" :key="answer" >
+              <li class="results"> {{answer.student}} | {{ answer.answer }} </li>
+            </ul>
+
           </v-col>
           <v-btn class="logout primary" @click="logout()"> Sair </v-btn>
         </v-card>
@@ -54,11 +54,11 @@
       </v-row>
     </v-container>
 
-    <v-container class="main-container animate__bounce" v-if="screen == 'question' ">
+    <v-container class="main-container" v-if="screen == 'question' ">
       <v-row class="text-center">
         <v-card elevation="5" class="main-card">
           <v-col class="mb-4">
-            <h1 class="display-2 font-weight-bold mb-3">Ensinômetro</h1>
+            <h1 class="display-2 font-weight-bold mb-3">Ensinômetro - Professores</h1>
             <v-card-title> Insira o título da pergunta: </v-card-title>
             <v-text-field
                 v-model="question.title"
@@ -113,8 +113,10 @@ export default {
     screen: "register",
     message: null,
     showSnackbar: false,
-    questions: []
+    questions: [],
+    answers: null
   }),
+  
 
   mounted() {
     if(localStorage.user) {
@@ -151,6 +153,11 @@ export default {
     sendQuestion(question) {
       this.questions.push(question);
     },
+
+    studentAnswers(answers) {
+      console.log(answers)
+      this.answers = answers
+    }
     
   },
 
@@ -191,36 +198,36 @@ export default {
       this.screen = 'register';
     },
 
-    registerQuestion( question ) {
+    registerQuestion(  ) { //question
       this.$socket.emit('set question', [
         { 
         title: 'Números Pares',
-        description: 'Quais desses números são pares?',
+        description: 'Quais desses números é par?',
         alternatives: [
-          { value: '2', rightAnswer: true, key: 1 },
+          { value: '1', rightAnswer: false, key: 1 },
           { value: '3', rightAnswer: false, key: 2 },
           { value: '8', rightAnswer: true, key: 3 },
           { value: '17', rightAnswer: false, key: 4 }
         ]
        },
-        { 
+        {
         title: 'Números Ímpares',
-        description: 'Quais desses números são pares?',
+        description: 'Quais desses números é ímpar?',
         alternatives: [
           { value: '2', rightAnswer: false, key: 1 },
-          { value: '3', rightAnswer: true, key: 2 },
+          { value: '4', rightAnswer: false, key: 2 },
           { value: '8', rightAnswer: false, key: 3 },
           { value: '17', rightAnswer: true, key: 4 }
         ]
        },
         { 
         title: 'Números Divisíveis por três',
-        description: 'Quais desses números são divisíveis por 2',
+        description: 'Quais desses números é divisível por 3?',
         alternatives: [
           { value: '2', rightAnswer: false, key: 1 },
           { value: '3', rightAnswer: true, key: 2 },
-          { value: '9', rightAnswer: true, key: 3 },
-          { value: '18', rightAnswer: true, key: 4 }
+          { value: '7', rightAnswer: false, key: 3 },
+          { value: '5', rightAnswer: false, key: 4 }
         ]
        },
 
@@ -228,7 +235,6 @@ export default {
        
        
        );
-      console.log(question);
       this.screen = 'home';
     }
 
@@ -300,6 +306,12 @@ export default {
 
 .alternative {
   margin: 10px;
+}
+
+.results {
+  list-style: none;
+  font-weight: bold;
+  line-height: 2;
 }
 
 </style>
